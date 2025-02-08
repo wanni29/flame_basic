@@ -7,23 +7,28 @@ import 'package:flutter/material.dart';
 class GameLoop extends FlameGame {
   double circleX = 0;
   double circleY = 0;
-  bool isMoving = true;
+  bool isMovingX = true;
+  bool isMovingY = true;
 
 // update의 값이 변함에 따라서
 // render함수가 호출이 된다.
 // 그에 따라서 그림이 이동하는것처럼 보인다.
   @override
   void update(double dt) {
-    if (isMoving) {
+    // X축에 관하여
+    if (isMovingX) {
       circleX += 300 * dt; // 원을 오른쪽으로 이동 (100px / sec)
     }
-    log('circleX : ${circleX.toString()}');
     if (circleX > 735) {
       circleX = 0;
     }
 
-    circleY += 300 * dt;
-    if (circleY > size.y) {
+    // Y축에 관하여
+
+    if (isMovingY) {
+      circleY += 300 * dt;
+    }
+    if (circleY > 735) {
       circleY = 0;
     }
   }
@@ -73,7 +78,11 @@ class GameLoop extends FlameGame {
     // canvas.drawPath(path, paint);
   }
 
-  void stopMoving() {
-    isMoving = !isMoving;
+  void stopMovingX() {
+    isMovingX = !isMovingX;
+  }
+
+  void stopMovingY() {
+    isMovingY = !isMovingY;
   }
 }
