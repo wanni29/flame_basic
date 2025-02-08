@@ -25,11 +25,35 @@ class GameScreen extends StatelessWidget {
                         minimumSize: Size(150, 60),
                       ),
                       onPressed: () {
+                        gameLoop.activeBlueCircle(); // 버튼을 누르면 X축이 멈춘다.
+                      },
+                      child: Text('Active Blue'),
+                    ),
+                    const SizedBox(width: 16.0),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(150, 60),
+                      ),
+                      onPressed: () {
+                        gameLoop.activeRedCircle(); // 버튼을 누르면 Y축이 멈춘다.
+                      },
+                      child: Text('Active Red'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(150, 60),
+                      ),
+                      onPressed: () {
                         gameLoop.stopMovingX(); // 버튼을 누르면 X축이 멈춘다.
                       },
                       child: Text('Stop X'),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(150, 60),
