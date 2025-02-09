@@ -39,6 +39,16 @@ class GameScreen extends StatelessWidget {
                       },
                       child: Text('Active Red'),
                     ),
+                    const SizedBox(width: 16.0),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(150, 60),
+                      ),
+                      onPressed: () {
+                        gameLoop.activeGreenTriAngle(); // 버튼을 누르면 Y축이 멈춘다.
+                      },
+                      child: Text('Active Green'),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8.0),

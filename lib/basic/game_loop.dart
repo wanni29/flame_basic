@@ -19,6 +19,9 @@ class GameLoop extends FlameGame {
   bool isMovingY = true;
   bool blueCircles = true;
 
+  // #3
+  bool greenTriAngle = true;
+
   @override
   void onGameResize(Vector2 size) {
     super.onGameResize(size);
@@ -95,19 +98,44 @@ class GameLoop extends FlameGame {
       }
     }
 
+    if (greenTriAngle) {
+      // 삼각형
+      final greenPaint = Paint()..color = Colors.green.withOpacity(0.9);
+
+      // 회전 중심점 설정
+      double triCenterX = 380;
+      double triCenterY = 380;
+
+      // 정삼각형의 밑변 길이(조절 가능)
+      double base = 400;
+      double height = (base * 0.866); // h = (sqrt(3) / 2) * base
+
+      // 삼각형의 세 꼭짓점계산
+      Offset top = Offset(triCenterX, triCenterY - height / 2);
+      Offset left = Offset(triCenterX - base / 2, triCenterY + height / 2);
+      Offset right = Offset(triCenterX + base / 2, triCenterY + height / 2);
+
+      //현재 상태 저장
+      canvas.save();
+
+      // 중심점 기준으로 회전
+      canvas.translate(triCenterX, triCenterY);
+      canvas.rotate(angle * 10);
+      canvas.translate(-triCenterX, -triCenterY);
+
+      Path path = Path()
+        ..moveTo(top.dx, top.dy) //꼭짓점
+        ..lineTo(left.dx, left.dy) // 왼쪽 아래
+        ..lineTo(right.dx, right.dy) // 오른쪽 아래
+        ..close();
+      canvas.drawPath(path, greenPaint);
+
+      canvas.restore();
+    }
+
     // 사각형
     // paint.color = Colors.red;
     // canvas.drawRect(Rect.fromLTWH(200, 50, 100, 100), paint);
-
-    // 삼각형
-    // paint.color = Colors.purple;
-    // Path path = Path()
-    //   ..moveTo(300, 50)
-    //   ..lineTo(350, 150)
-    //   ..lineTo(350, 150)
-    //   ..lineTo(250, 150)
-    //   ..close();
-    // canvas.drawPath(path, paint);
   }
 
   void activeBlueCircle() {
@@ -116,6 +144,10 @@ class GameLoop extends FlameGame {
 
   void activeRedCircle() {
     redCircle = !redCircle;
+  }
+
+  void activeGreenTriAngle() {
+    greenTriAngle = !greenTriAngle;
   }
 
   void stopMovingX() {
